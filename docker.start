@@ -1,0 +1,23 @@
+docker stop nfs
+docker rm nfs
+#	-v /var/log:/exports \
+   # /usr/sbin/init
+docker run \
+	--name nfs \
+	--hostname=nfs \
+	-d \
+    -e "container=docker" \
+	--privileged \
+	-p 111:111/tcp \
+	-p 111:111/udp \
+	-p 662:662/tcp \
+	-p 662:662/udp \
+	-p 892:892/tcp \
+	-p 892:892/udp \
+	-p 2049:2049/tcp \
+	-p 2049:2049/udp \
+	-p 32768:32768/tcp \
+	-p 32768:32768/udp \
+	nfs:`cat /root/pem/version`
+#    /usr/sbin/init && ./start.sh
+#docker kill -s KILL mynginx
