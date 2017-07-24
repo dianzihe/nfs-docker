@@ -1,7 +1,6 @@
 docker stop nfs
 docker rm nfs
-#	-v /var/log:/exports \
-   # /usr/sbin/init
+
 docker run \
 	--name nfs \
 	--hostname=nfs \
@@ -18,6 +17,8 @@ docker run \
 	-p 2049:2049/udp \
 	-p 32768:32768/tcp \
 	-p 32768:32768/udp \
-	nfs:`cat /root/pem/version`
-#    /usr/sbin/init && ./start.sh
-#docker kill -s KILL mynginx
+	-v /var/log:/exports \
+	nfs:0724
+
+docker exec nfs /usr/local/bin/start.sh
+echo "======set iptables======"

@@ -1,4 +1,4 @@
-FROM centos
+FROM centos:centos7
 
 ENV container=docker
 
@@ -16,7 +16,7 @@ EXPOSE 111/udp 111/tcp 2049/tcp 2049/udp 892/tcp 892/udp 662/udp 662/tcp 32768/t
 ADD start.sh /usr/local/bin/start.sh 
 RUN chmod -v +x /usr/local/bin/start.sh
 
-#ENTRYPOINT /usr/sbin/init
+ENTRYPOINT /usr/sbin/init
 #CMD ["/usr/sbin/init && /usr/local/bin/start.sh"]
-CMD ["/usr/sbin/init"]
-CMD ["/usr/local/bin/start.sh"]
+#CMD ["/usr/sbin/init"]
+#CMD ["/usr/local/bin/start.sh"]
