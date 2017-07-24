@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t nfs:`cat /root/pem/version` .
+docker build -t nfs:0724 .

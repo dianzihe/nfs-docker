@@ -1,15 +1,5 @@
 #!/bin/bash
-
 #set -eu
-
-### Handle `docker stop` for graceful shutdown
-function shutdown {
-    touch /tmp/bbbb
-    exit 0
-}
-
-trap "shutdown" SIGTERM
-####
 
 target=/etc/sysconfig/nfs
 sed -i "s#^RPCMOUNTDOPTS.*#RPCMOUNTDOPTS=\"-p 32767\"#g" $target
@@ -33,7 +23,6 @@ fi
 
 export_base="/exports/"
 
-#echo "$export_base *(rw,sync,insecure,fsid=0,no_subtree_check,no_root_squash)" | tee /etc/exports
 echo "$export_base *(insecure,rw,async,no_root_squash)" | tee /etc/exports
 
 read -a exports <<< "${@}"
@@ -56,9 +45,8 @@ systemctl restart nfs-idmap
 systemctl restart nfslock
 systemctl restart nfs
 
-exportfs -a
 sleep 3
 exportfs -a
 
 # Run forever
-sleep infinity
+#sleep infinity
